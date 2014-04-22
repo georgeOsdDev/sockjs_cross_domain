@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <title>SockJS Cross Domain Test</title>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
+  </head>
+  <body>
+
+    <div style="margin:40px;">
+      <p><button id="same">Same</button></p>
+      <p><button id="same_ssl">SameSll</button></p>
+      <p><button id="cross">Cross</button></p>
+      <p><button id="cross_ssl">CrossSll</button></p>
+    </div>
+
+    <div id="out">
+    </div>
+
+    <script>
+      window.WebSocket = false;
+
+      var currentDomain = window.location.origin;
+      var crossDomain   = "127.0.0.1";
+
+      // var currentDomain = window.location.origin;
+      // var crossDomain   = "ec2-54-248-183-115.ap-northeast-1.compute.amazonaws.com";
+
+      var httpPort = ":8000"
+      var httpsPort = ":4430"
+
+      var sockUrl_same      = "http://"+window.location.hostname+httpPort+"/echo";
+      var sockUrl_same_ssl  = "https://"+window.location.hostname+httpsPort+"/echo";
+      var sockUrl_cross     = "http://"+crossDomain+httpPort+"/echo";
+      var sockUrl_cross_ssl = "https://"+crossDomain+httpsPort+"/echo";
+
+      var whitelist = [
+        //'websocket',
+        'xdr-streaming',
+        'xhr-streaming',
+        'iframe-eventsource',
+        'iframe-htmlfile',
+        'xdr-polling',
+        'xhr-polling',
+        'iframe-xhr-polling',
+        'jsonp-polling'
+      ];
+
+      function logging(msg){
+        $("#out").append("<p>" + msg + "</p>");
+      }
+
+
+      function start(url){
+        logging("currentDomain " + currentDomain);
+        logging("sockUrl " + url);
+        var sock = new SockJS(url, null, whitelist);
+          sock.onopen = function(e) {
+            logging("open" + JSON.stringify(e));
+            sendAfter3(sock);
+        };
+        sock.onmessage = function(e) {
+          logging("receive s->c " + JSON.stringify(e));
+        };
+        sock.onclose = function(e) {
+          logging("close " + JSON.stringify(e));
+        };
+      }
+
+      function sendAfter3(sock){
+        setTimeout(function(){
+          logging("send c->s");
+          sock.send("client-to-server");
+        },3000);
+      }
+
+      $(function(){
+        $("#same").on("touchend", function(){
+          start(sockUrl_same);
+        });
+        $("#same_ssl").on("touchend", function(){
+          start(sockUrl_same_ssl);
+        });
+        $("#cross").on("touchend", function(){
+          start(sockUrl_cross);
+        });
+        $("#cross_ssl").on("touchend", function(){
+          start(sockUrl_cross_ssl);
+        });
+
+        if(!window.TouchEvent){
+          $("button").on("click", function(e){ $(e.target).trigger("touchend");});
+        }
+
+      })
+    </script>
+  </body>
+</html>
