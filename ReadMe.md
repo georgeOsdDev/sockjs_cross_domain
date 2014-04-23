@@ -1,4 +1,9 @@
-#Test for Android SockJS Cross Domain xhr_streaming/xhr_polling
+##Test for Android SockJS Cross Domain xhr_streaming/xhr_polling
+
+This is a test for GALAXY S4(SC-04E) default browser with SockJS.
+By default, GS4 support WebSocket, So it have no problem.
+But if accidentaly `window.WebSocket = null;` SockJS fall back its protocol to xhr.
+in that protocol, xhr_send will be fail in GS4.
 
 ### Start Server
 
@@ -7,6 +12,7 @@
 	node server
 
   #Browse index.html and connect sockUrl by tapping each button.
+
 	open http://mydomain/
 	open https://mydomain/
 
@@ -16,6 +22,7 @@
 	sbt/sbt run
 
   #Browse index.html and connect sockUrl by tapping each button.
+
 	open http://mydomain/index.html
 	open https://mydomain/index.html
 
