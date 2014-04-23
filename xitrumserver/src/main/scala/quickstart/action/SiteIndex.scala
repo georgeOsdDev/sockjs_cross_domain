@@ -1,7 +1,7 @@
 package quickstart.action
 
-import xitrum.annotation.{GET,SOCKJS}
-import xitrum.{SockJsAction,SockJsText}
+import xitrum.annotation.{GET,POST,SOCKJS}
+import xitrum.{Action,SockJsAction,SockJsText,SkipCsrfCheck}
 
 
 @GET("")
@@ -20,4 +20,11 @@ class SockJsChatActor extends SockJsAction {
         respondSockJsText(text)
     }
   }
+}
+
+@POST("post")
+class PostActor extends Action with SkipCsrfCheck {
+   def execute() {
+     respondText("ok")
+   }
 }

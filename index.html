@@ -3,9 +3,16 @@
   <head>
       <meta charset="utf-8">
       <title>SockJS Cross Domain Test</title>
+
+      <script>
+        //window.WebSocket = false;
+        //window.NativeXMLHttpRequest = window.XMLHttpRequest;
+        //window.XMLHttpRequest = null;
+      </script>
+
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
-  </head>
+   </head>
   <body>
 
     <div style="margin:40px;">
@@ -13,19 +20,20 @@
       <p><button id="same_ssl">SameSll</button></p>
       <p><button id="cross">Cross</button></p>
       <p><button id="cross_ssl">CrossSll</button></p>
+      <p><button id="xhrpostbutton">xhrPost</button></p>
+      <p><button id="ajaxpostbutton">$ajaxPost</button></p>
     </div>
 
     <div id="out">
     </div>
 
     <script>
-      window.WebSocket = false;
 
       var currentDomain = window.location.origin;
       var crossDomain   = "127.0.0.1";
 
-      // var currentDomain = window.location.origin;
-      // var crossDomain   = "ec2-54-248-183-115.ap-northeast-1.compute.amazonaws.com";
+      //var currentDomain = window.location.origin;
+      //var crossDomain   = "ec2-54-248-183-115.ap-northeast-1.compute.amazonaws.com";
 
       var httpPort = ":8000"
       var httpsPort = ":4430"
@@ -37,7 +45,7 @@
 
       var whitelist = [
         //'websocket',
-        'xdr-streaming',
+        //'xdr-streaming',
         'xhr-streaming',
         'iframe-eventsource',
         'iframe-htmlfile',
@@ -48,6 +56,7 @@
       ];
 
       function logging(msg){
+        console.log(msg);
         $("#out").append("<p>" + msg + "</p>");
       }
 
@@ -55,7 +64,7 @@
       function start(url){
         logging("currentDomain " + currentDomain);
         logging("sockUrl " + url);
-        var sock = new SockJS(url, null, whitelist);
+        var sock = new SockJS(url, null, {debug:true, protocols_whitelist:whitelist});
           sock.onopen = function(e) {
             logging("open" + JSON.stringify(e));
             sendAfter3(sock);
@@ -74,8 +83,15 @@
           sock.send("client-to-server");
         },3000);
       }
-
+      window.onerror = function(e){
+        logging("windowerror" + JSON.stringify(e));
+      }
       $(function(){
+
+        logging("WebSocket support: "+ ((window.WebSocket) ? "yes" : "no"));
+        logging("XMLHttpRequest support: "+ ((window.XMLHttpRequest) ? "yes" : "no"));
+        logging("CORS support: "+ (((window.XMLHttpRequest && 'withCredentials' in new window.XMLHttpRequest())) ? "yes" : "no"));
+
         $("#same").on("touchend", function(){
           start(sockUrl_same);
         });
@@ -93,7 +109,90 @@
           $("button").on("click", function(e){ $(e.target).trigger("touchend");});
         }
 
-      })
+        function createCORSRequest(method, url) {
+          if (!XMLHttpRequest) return null;
+          var xhr = new XMLHttpRequest();
+          if ("withCredentials" in xhr) {
+            // XHR for Chrome/Firefox/Opera/Safari.
+            xhr.open(method, url, true);
+          } else if (typeof XDomainRequest != "undefined") {
+            // XDomainRequest for IE.
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+          } else {
+            // CORS not supported.
+            xhr = null;
+          }
+          return xhr;
+        }
+
+        $("#xhrpostbutton").on("touchend",function(){
+          logging("start post");
+          var xhr = createCORSRequest("POST", sockUrl_cross_ssl.replace("echo","post"));
+
+          if (!xhr) {
+            alert('CORS not supported');
+            return;
+          }
+
+          xhr.withCredentials = true;
+          xhr.onloadstart = function() {
+            logging('onloadstart');
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          };
+          xhr.onprogress = function() {
+            logging('onprogress');
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          };
+          xhr.onabort = function() {
+            logging('onabort');
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          };
+          xhr.ontimeout = function() {
+            logging('ontimeout');
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          };
+          xhr.onloadend = function() {
+            logging('onloadend');
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          };
+          xhr.onreadystatechange = function(){
+            logging("onreadystatechange");
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          };
+          xhr.onload = function() {
+            logging("onload");
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          }
+          xhr.onerror = function() {
+            logging("onerror");
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          }
+          logging("send post");
+          xhr.send();
+        });
+
+        $("#ajaxpostbutton").on("touchend", function(){
+          logging("ajaxpost");
+          $.ajax({
+            url: sockUrl_cross_ssl.replace("echo","post"),
+            crossDomain: true,
+            type: "POST",
+            xhrFields: {
+                  withCredentials: true
+               }
+          }).done(function(){
+            logging("done");
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          }).fail(function(){
+            logging("fail");
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          }).always(function(){
+            logging("always");
+            logging(JSON.stringify(Array.prototype.slice.apply(arguments)));
+          });
+        });
+      });
     </script>
   </body>
 </html>

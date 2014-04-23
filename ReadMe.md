@@ -113,6 +113,20 @@ Mac OSX 10.9.2 - FireFox 28.0
 |https://mydomain/    |http://crossdomain/echo  |1002 (Can't connect to server)   |
 |https://mydomain/    |https://crossdomain/echo |OK      |
 
+iPhone4s - iOS7.1 mobile Safari
+
+|WebUrl(index.html)   | SockUrl                 | Result |
+|:--------------------|:------------------------|:------:|
+|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |http://mydomain/echo     |OK      |
+|---------------------|-------------------------|--------|
+|https://mydomain/    |http://mydomain/echo     |OK      |
+|https://mydomain/    |https://mydomain/echo    |OK      |
+|https://mydomain/    |http://crossdomain/echo  |OK      |
+|https://mydomain/    |https://crossdomain/echo |OK      |
+
 
 GALAXY S4(SC-04E) Android 4.3 Default Browser
 
