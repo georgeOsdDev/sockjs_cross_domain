@@ -29,9 +29,9 @@ Mac OSX 10.9.2 - Google Chrome 34.0.1847.116
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -43,9 +43,9 @@ Mac OSX 10.9.2 - FireFox 28.0
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |1002    |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -58,9 +58,9 @@ GALAXY S4(SC-04E) Android 4.3 Default Browser
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |1006 (Sending error http status 0)   |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |1006 (Sending error http status 0)   |
+|http://mydomain/     |https://mydomain/echo    |1006 (Sending error http status 0)   |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |1006 (Sending error http status 0)   |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -73,9 +73,9 @@ GALAXY S4(SC-04E) Android 4.3 Google Chrome 34.0.1847.114
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -90,9 +90,9 @@ Mac OSX 10.9.2 - Google Chrome 34.0.1847.116
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -104,9 +104,9 @@ Mac OSX 10.9.2 - FireFox 28.0
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |1002 (Can't connect to server)   |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -118,9 +118,9 @@ iPhone4s - iOS7.1 mobile Safari
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -133,9 +133,9 @@ GALAXY S4(SC-04E) Android 4.3 Default Browser
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |1006 (Sending error http status 0)   |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |1006 (Sending error http status 0)   |
+|http://mydomain/     |https://mydomain/echo    |1006 (Sending error http status 0)   |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |1006 (Sending error http status 0)   |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
@@ -148,9 +148,9 @@ GALAXY S4(SC-04E) Android 4.3 Google Chrome 34.0.1847.114
 |WebUrl(index.html)   | SockUrl                 | Result |
 |:--------------------|:------------------------|:------:|
 |http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
-|http://mydomain/     |http://mydomain/echo     |OK      |
+|http://mydomain/     |https://mydomain/echo    |OK      |
+|http://mydomain/     |http://crossdomain/echo  |OK      |
+|http://mydomain/     |https://crossdomain/echo |OK      |
 |---------------------|-------------------------|--------|
 |https://mydomain/    |http://mydomain/echo     |OK      |
 |https://mydomain/    |https://mydomain/echo    |OK      |
