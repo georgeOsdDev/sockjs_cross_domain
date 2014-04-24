@@ -3,18 +3,26 @@
 This is a test for GALAXY S4(SC-04E) default browser with SockJS.
 By default, GS4 support WebSocket, So it have no problem.
 But if accidentaly `window.WebSocket = null;` SockJS fall back its protocol to xhr.
-in that protocol, xhr_send will be fail in GS4.
+in that protocol, cross domain xhr_send request over https will be fail in GS4.
+
+
+##Conclusion
+
+This problem occur only Galaxy S4 (Android 4.3) 's Default browser.
+
+It seems to be that browser cancel cross domain post request if http header was not set to XMLHTTPRequest object.
+
 
 ### Start Server
 
 #### Use [sockjs-node](https://github.com/sockjs/sockjs-node)
-	npm install
+	npm install sockjs
 	node server
 
   #Browse index.html and connect sockUrl by tapping each button.
 
-	open http://mydomain/
-	open https://mydomain/
+	open http://mydomain:8000/
+	open https://mydomain:4430/
 
 
 #### Or Use [Xitrum](https://github.com/ngocdaothanh/xitrum)
@@ -23,10 +31,10 @@ in that protocol, xhr_send will be fail in GS4.
 
   #Browse index.html and connect sockUrl by tapping each button.
 
-	open http://mydomain/index.html
-	open https://mydomain/index.html
+	open http://mydomain:8000/index.html
+	open https://mydomain:4430/index.html
 
-
+You should install self-sign ssl certificate by access https://crossdomain:4430 directory, before start test.
 
 ### Result (Node server)
 _Number in Result column mean error code of close event._
