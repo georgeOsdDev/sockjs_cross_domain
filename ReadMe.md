@@ -12,6 +12,7 @@ This problem occur only Galaxy S4 (Android 4.3) 's Default browser.
 
 It seems to be that browser cancel cross domain post request if http header was not set to XMLHTTPRequest object.
 
+This [PR](https://github.com/sockjs/sockjs-client/pull/164) is fix for that problem.
 
 ### Start Server
 
